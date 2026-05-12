@@ -974,8 +974,8 @@
               needs help. Use it strategically, not lazily.
             </p>
             <p>
-              On CTFd, hints carry a <strong>point penalty</strong>. Plan
-              accordingly.
+              Hints may carry a <strong>point penalty</strong>. Plan
+              accordingly and spend intel carefully.
             </p>
           </div>
           <div class="support-steps">
@@ -1005,8 +1005,7 @@
             <div class="support-step">
               <div class="support-step-num">04</div>
               <div class="support-step-text">
-                <strong>On CTFd:</strong> unlock hints directly under the
-                challenge. Each hint carries a
+                <strong>Use intel carefully:</strong> each requested hint carries a
                 <strong>−25 point penalty</strong>.
               </div>
             </div>
@@ -1029,8 +1028,8 @@
       <h2 class="sec-title">INFILTRATE THE <em>NETWORK</em></h2>
       <p class="sec-lead">
         Each solved node releases one fragment. Solve all eleven to assemble the
-        Override Key. Replace the CTFd links below with your real challenge
-        URLs.
+        Override Key. Open each local node, recover the fragment, and sync your
+        team's progress to the live leaderboard.
       </p>
 
       <div class="nodes-grid" id="nodes-grid">
@@ -1061,7 +1060,7 @@
             <h4>COLLECT ALL 11</h4>
             <p>
               Recover every fragment by solving all eleven encrypted challenge
-              nodes on CTFd
+              nodes on the event site
               <!-- FIX #6: "all 10" → "all eleven" (node 11 had wrong count) -->
             </p>
           </div>
@@ -1085,7 +1084,7 @@
         </div>
 
         <!-- FIX #4: Removed plain-text flag — replaced with redacted placeholder.
-             The actual flag should ONLY exist inside CTFd, not on this public page. -->
+             The actual final key should not be exposed on this public page. -->
         <div class="override-key">
           <span class="ok-label"
             >// FINAL OVERRIDE KEY FORMAT — ASSEMBLE FROM ALL FRAGMENTS</span
@@ -1110,7 +1109,7 @@
       <div class="footer-right">
         <span>PROTOCOL ZERO :: ACTIVE<span class="cursor"></span></span><br />
         All decisions by Watchers are final<br />
-        Replace CTFd URLs before going live
+        Live leaderboard synced through Firebase
       </div>
     </footer>
 
@@ -1138,139 +1137,137 @@
       })();
 
       /* ── NODE DATA ─────────────────────────────────────────────────────────── */
-      // ✏ Replace all ctfd URLs with your real CTFd challenge links before going live.
       const nodes = [
         {
           num: 1,
-          icon: "🔢",
-          title: "Binary Distress Signal",
-          cat: "Crypto",
-          catClass: "cat-crypto",
-          pts: 50,
-          desc: "A distress signal was intercepted from a VORTEX safehouse. Decode the binary transmission to recover the first fragment.",
-          code: "01110110 01101111 01110010 01110100 01100101 01111000",
-          hint: "Each group of 8 binary digits = one character. Use rapidtables.com/convert/number/binary-to-ascii.html",
+          icon: "↩",
+          title: "Safehouse Loop",
+          cat: "Network",
+          catClass: "cat-web",
+          pts: 100,
+          desc: "One of VORTEX's hidden safehouses never touched the public network. Return to yourself.",
+          code: "Identify the loopback IP address used to refer to your own machine.",
+          hint: "Look for the IPv4 address commonly used by a machine to refer to itself.",
           ctfd: "nodes/node01.html",
         },
         {
           num: 2,
-          icon: "📡",
-          title: "Morse Radio Burst",
+          icon: "🔐",
+          title: "Encryption",
           cat: "Crypto",
           catClass: "cat-crypto",
-          pts: 50,
-          desc: "VORTEX operatives used old-school radio to avoid detection. Decode this intercepted burst.",
-          code: "-... .-. . .- -.-. ...",
-          hint: "Each group separated by spaces is one letter. Paste into morsecode.world and decode.",
+          pts: 100,
+          desc: "Before joining VORTEX, recruits faced one final riddle about secure transmission.",
+          code: "I protect secrets without locks.\nI exist in every secure transmission.\nYou can use me, but never see me.",
+          hint: "Every encrypted message depends on this invisible element.",
           ctfd: "nodes/node02.html",
         },
         {
           num: 3,
-          icon: "🔒",
-          title: "ROT13 Internal Memo",
+          icon: "⬡",
+          title: "Hex Dump - Network Packet",
           cat: "Crypto",
           catClass: "cat-crypto",
-          pts: 50,
-          desc: 'An internal VORTEX memo was "secured" with ROT13. Every letter shifts by 13 places. Decode to find the fragment.',
-          code: "synt{ebg13_vf_abg_frphevgl}",
-          hint: '"synt" shifted 13 places → "flag". Paste into rot13.com. Non-letters stay as-is.',
+          pts: 100,
+          desc: "A captured VORTEX packet contains a sequence of hex bytes. Decode the packet payload.",
+          code: "76 6f 72 74 65 78 5f 66 61 6c 6c 73",
+          hint: "Decode the hexadecimal pairs into text.",
           ctfd: "nodes/node03.html",
         },
         {
           num: 4,
-          icon: "🌐",
-          title: "URL Encoded Directive",
-          cat: "Web",
-          catClass: "cat-web",
-          pts: 50,
-          desc: "A VORTEX operative shared this suspicious URL. Decode the percent-encoded characters to find the hidden fragment.",
-          code: "https://vortex.net/%66%6C%61%67%7B%75%72%6C%5F%65%6E%63%6F%64%65%64%7D",
-          hint: "%XX is a hex-encoded character. Paste the path portion into urldecoder.org to decode all at once.",
+          icon: "🧩",
+          title: "Hex Whisper",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 100,
+          desc: "A dying operative left one final transmission, a hex string burned into a matchbox.",
+          code: "48 41 43 4B 45 44",
+          hint: "Each hex pair maps to one ASCII character.",
           ctfd: "nodes/node04.html",
         },
         {
           num: 5,
-          icon: "🖼",
-          title: "Steganography — Operative Logo",
-          cat: "Forensics",
-          catClass: "cat-forensics",
-          pts: 50,
-          desc: "A leaked VORTEX logo image has been provided. A fragment is hidden inside the image data. Extract the hidden text.",
-          code: "Image file: vortex_logo.png\nExtraction password: vortex",
-          hint: 'Go to aperisolve.fr, upload the image, enter password "vortex". Check the steghide section output.',
+          icon: "📶",
+          title: "Signal Fragment",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 100,
+          desc: "A damaged transmission was hidden inside the syndicate's communication relay.",
+          code: "Decode the ASCII decimal sequence:\n112 114 111 116 111 99 111 108",
+          hint: "Each number represents the decimal ASCII value of a character.",
           ctfd: "nodes/node05.html",
         },
         {
           num: 6,
-          icon: "🕵",
-          title: "OSINT — Agent Lookup",
-          cat: "OSINT",
-          catClass: "cat-osint",
-          pts: 50,
-          desc: "A VORTEX operative used the username vrtx_phantom on GitHub and Pastebin. Find the secret message they left publicly.",
-          code: "Username: vrtx_phantom\nPlatforms: GitHub, Pastebin",
-          hint: "Search the username on GitHub. Look at public repos and gist descriptions — the flag is embedded in plain sight.",
+          icon: "🚪",
+          title: "One Way Door",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 100,
+          desc: "VORTEX encrypted every password using a one-way transformation.",
+          code: "What is this process called?",
+          hint: "It produces fixed-length outputs, cannot be reversed, and changes drastically from tiny input changes.",
           ctfd: "nodes/node06.html",
         },
         {
           num: 7,
-          icon: "💉",
-          title: "SQL Injection — Login Panel",
+          icon: "📨",
+          title: "False Transmission",
           cat: "Web",
           catClass: "cat-web",
           pts: 100,
-          desc: "A VORTEX login portal is hosted at the challenge URL. The username field is vulnerable to SQL injection. Log in as admin without the password.",
-          code: "Endpoint: /ctfd/node-7/login\nTry: admin'--",
-          hint: "In the username field try: admin'-- (space after --). This comments out the password check in the SQL query.",
+          desc: "One intercepted message is a phishing trap. Identify the fake sender.",
+          code: "1. support@gmail-security.com\n2. support@gmail.com\n3. noreply@google.com",
+          hint: "Look closely at the domain name after the @ symbol.",
           ctfd: "nodes/node07.html",
         },
         {
           num: 8,
-          icon: "🔍",
-          title: "Robots.txt Recon",
+          icon: "👁",
+          title: "Ghost in the Markup",
           cat: "Web",
           catClass: "cat-web",
           pts: 100,
-          desc: "The VORTEX public website hides a secret directory in its robots.txt file. Find the disallowed path and navigate there to recover the fragment.",
-          code: "Target: [event-site-url]/robots.txt",
-          hint: 'Add /robots.txt to the site URL. Look for "Disallow:" entries — navigate to those hidden paths.',
+          desc: "Every page hides more than it shows. A fragment is buried inside an HTML comment.",
+          code: "Open a node page source and search through the markup.",
+          hint: "View Page Source. The answer is already in front of you.",
           ctfd: "nodes/node08.html",
         },
         {
           num: 9,
-          icon: "📦",
-          title: "Packet Capture Analysis",
-          cat: "Network",
+          icon: "🤖",
+          title: "Hidden Directive",
+          cat: "Web",
           catClass: "cat-web",
           pts: 100,
-          desc: "A .pcap file captured inside VORTEX HQ is provided. Filter HTTP POST traffic to find plaintext credentials being transmitted.",
-          code: 'File: vortex_capture.pcap\nFilter: http.request.method == "POST"',
-          hint: "Open in Wireshark → filter as shown → right-click → Follow → HTTP Stream. Look for password= field.",
+          desc: "VORTEX analysts uncovered traces of a hidden directory buried within a public web server.",
+          code: "Inspect robots.txt, identify the hidden path, and navigate to the concealed location.",
+          hint: 'Go to /robots.txt and look for "Disallow:" entries.',
           ctfd: "nodes/node09.html",
         },
         {
           num: 10,
-          icon: "🔑",
-          title: "Hash Cracking — Operative Password",
-          cat: "Crypto",
-          catClass: "cat-crypto",
+          icon: "💥",
+          title: "Endless Attempts",
+          cat: "Security",
+          catClass: "cat-web",
           pts: 100,
-          desc: "A VORTEX operative's password hash was recovered from the breached database. Crack it to find the plaintext password.",
-          code: "5f4dcc3b5aa765d61d8327deb882cf99",
-          hint: "This is an MD5 hash. Go to crackstation.net, paste it in, and search the rainbow table database.",
+          desc: "THE DIRECTOR reused weak passwords across secure systems.",
+          code: "What cybersecurity term describes systematically trying every possible password combination?",
+          hint: "This attack uses raw strength over strategy.",
           ctfd: "nodes/node10.html",
         },
         {
           num: 11,
-          icon: "🏁",
-          title: "Final Override Assembly",
-          cat: "Logic",
-          catClass: "cat-logic",
-          pts: 500,
-          // FIX #6: Was "Combine all 10 fragment answers" — corrected to all 11
-          desc: "All fragments recovered. Arrange the answers from all previous nodes in the correct order to form the complete Override Key and stop Protocol Zero.",
-          code: "Combine all 11 fragment answers\nAssemble in correct sequence\nSubmit to Watcher Alpha",
-          hint: "The Override Key phrase was in your mission dossier from the beginning. Teams who read the full story carefully will recognise it.",
+          icon: "0101",
+          title: "Binary Whisper",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 100,
+          desc: "A distress signal was intercepted from one of THE DIRECTOR's hidden safehouses.",
+          code: "01001000 01000001 01000011 01001011 01000101 01000100",
+          hint: "Each group of 8 digits represents one character. Convert the binary to text.",
           ctfd: "nodes/node11.html",
         },
       ];
