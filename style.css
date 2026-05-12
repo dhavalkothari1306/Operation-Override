@@ -1,0 +1,1673 @@
+/* ═══════════════════════════════════════════════════════════════
+   OPERATION OVERRIDE — style.css
+   Dark violet cyber-thriller theme, retro CRT aesthetic.
+
+   SECTION INDEX:
+   1.  CSS Variables (colors, fonts)
+   2.  Reset & Base
+   3.  Scanline overlay
+   4.  Navigation bar
+   5.  Alert ticker bar
+   6.  Hero section
+   7.  Countdown timer
+   8.  CTA buttons
+   9.  Section shared styles
+   10. Mission / Dossier
+   11. Roles cards
+   12. Rules grid
+   13. Timeline
+   14. Force Support
+   15. Node cards
+   16. Win condition
+   17. Footer
+   18. Utility classes
+   19. Animations & keyframes
+   20. Responsive (mobile)
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. CSS VARIABLES ──────────────────────────────────────────
+   Change colors here to retheme the entire site.
+   --pink  : primary accent (neon magenta)
+   --cyan  : secondary accent (electric blue-green)
+   --violet: base purple tone
+─────────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg: #07040f; /* darkest — page background */
+  --bg2: #0d0820; /* slightly lighter — alternate sections */
+
+  /* Brand colors */
+  --violet: #7c3aed;
+  --violet2: #9d4edd;
+  --pink: #e040fb; /* primary accent — neon magenta */
+  --cyan: #00e5ff; /* secondary accent — electric cyan */
+  --pink2: #ff2d78;
+
+  /* Text */
+  --text: #e2d9f3; /* main body text */
+  --muted: #8875b0; /* de-emphasised text */
+
+  /* Borders & glows */
+  --border: rgba(156, 74, 237, 0.25);
+  --glow: rgba(224, 64, 251, 0.18);
+
+  /* Font stacks */
+  --mono: "Share Tech Mono", monospace; /* terminal / code text */
+  --raj: "Rajdhani", sans-serif; /* headings */
+}
+
+/* ─── 2. RESET & BASE ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px; /* base — everything scales from here */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--raj);
+  font-size: 1rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--violet);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--cyan);
+}
+
+/* ─── 3. SCANLINE OVERLAY ───────────────────────────────────────
+   Faint horizontal lines over everything — CRT screen effect.
+   Reduce opacity or remove ::before to disable.
+─────────────────────────────────────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanMove 10s linear infinite;
+}
+
+/* ─── 4. NAVIGATION BAR ─────────────────────────────────────────
+   Fixed at top. Blur glass effect.
+   ✏ Edit nav link text in index.html.
+─────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+  background: rgba(7, 4, 15, 0.88);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+}
+
+/* Logo: blinking dot + text */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 8px var(--pink);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.nav-logo span {
+  color: #fff;
+  font-weight: 600;
+}
+.nav-logo span em {
+  color: var(--pink);
+  font-style: normal;
+}
+
+/* Nav link list */
+.nav-links {
+  display: flex;
+  gap: 34px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--pink);
+}
+
+/* CTFd button — top-right */
+.nav-cta {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  padding: 10px 24px;
+  border: 1.5px solid var(--pink);
+  background: linear-gradient(135deg, var(--pink), var(--violet));
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 18px rgba(224, 64, 251, 0.3);
+}
+
+.nav-cta:hover {
+  box-shadow: 0 0 36px rgba(224, 64, 251, 0.6);
+  transform: translateY(-1px);
+}
+
+/* ─── 5. ALERT TICKER BAR ───────────────────────────────────────
+   Scrolling warning strip just below the nav.
+   ✏ Change the ticker message by editing the content: '' value.
+─────────────────────────────────────────────────────────────── */
+.warn-bar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(224, 64, 251, 0.07);
+  border-bottom: 1px solid rgba(224, 64, 251, 0.28);
+  padding: 7px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--pink);
+}
+
+/* ✏ Edit this text to change the ticker */
+.warn-bar::before {
+  content: "⚠  PROTOCOL ZERO ACTIVE — EVIDENCE PURGE IN PROGRESS — ALL STRIKE FORCE UNITS DEPLOY IMMEDIATELY  ⚠  PROTOCOL ZERO ACTIVE — EVIDENCE PURGE IN PROGRESS — ALL STRIKE FORCE UNITS DEPLOY IMMEDIATELY  ⚠";
+  display: block;
+  white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+
+/* ─── 6. HERO SECTION ───────────────────────────────────────────
+   Full-viewport landing area.
+   Two-column grid: left = content, right = operative image.
+─────────────────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  padding-top: 130px; /* clears nav + ticker */
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  padding-left: 64px;
+  padding-right: 0;
+  padding-bottom: 80px; /* room for stats bar */
+}
+
+/* Gradient background layers */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 62% 72% at 72% 50%,
+      rgba(124, 58, 237, 0.22) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 42% 52% at 20% 82%,
+      rgba(224, 64, 251, 0.1) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #07040f 0%, #0d0820 50%, #07040f 100%);
+  z-index: 0;
+}
+
+/* Subtle grid lines behind content */
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.hero-left {
+  position: relative;
+  z-index: 2;
+}
+
+/* PROTOCOL ZERO pill badge */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.17em;
+  color: var(--pink);
+  border: 1px solid rgba(224, 64, 251, 0.4);
+  padding: 7px 18px;
+  border-radius: 20px;
+  background: rgba(224, 64, 251, 0.06);
+  margin-bottom: 30px;
+}
+
+.status-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 8px var(--pink);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Big "OPERATION / OVERRIDE" headline */
+.hero-title {
+  font-family: var(--raj);
+  font-size: clamp(58px, 7.5vw, 100px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+/* "OVERRIDE" — gradient text */
+.hero-title-block {
+  display: block;
+  background: linear-gradient(90deg, var(--pink), var(--violet2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tagline paragraph */
+.hero-sub {
+  font-family: var(--raj);
+  font-size: 19px; /* ↑ increased for readability */
+  line-height: 1.75;
+  color: rgba(226, 217, 243, 0.78);
+  max-width: 520px;
+  margin: 24px 0 36px;
+}
+
+.hero-sub em {
+  color: var(--pink);
+  font-style: normal;
+}
+
+/* ── Right panel: operative image ── */
+.hero-right {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.operative-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 80% at 58% 50%,
+    rgba(157, 78, 221, 0.22) 0%,
+    transparent 70%
+  );
+}
+
+/* If you use a real image instead of the SVG */
+.operative-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 580px;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+/* SVG operative art container */
+.op-art {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 540px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.op-art svg {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+}
+
+/* Floating text labels over operative */
+.op-overlay-text {
+  position: absolute;
+  top: 140px;
+  left: 32px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+  line-height: 2.2;
+}
+
+.op-overlay-text span {
+  display: block;
+  opacity: 0.8;
+}
+
+/* Fragment / signal counter — bottom right of operative */
+.fragments-counter {
+  position: absolute;
+  bottom: 90px;
+  right: 36px;
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--cyan);
+  text-align: right;
+  line-height: 2;
+}
+
+.fragments-counter strong {
+  color: var(--pink);
+}
+.pink-text {
+  color: var(--pink);
+}
+
+/* Stats bar pinned to hero bottom */
+.hero-stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 44px;
+  padding: 18px 64px;
+  border-top: 1px solid var(--border);
+  background: rgba(7, 4, 15, 0.65);
+  backdrop-filter: blur(8px);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  z-index: 5;
+}
+
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.hero-stat span {
+  color: var(--muted);
+}
+.hero-stat strong {
+  color: var(--text);
+}
+
+/* Coloured stat dots */
+.hero-stat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.s-pink {
+  background: var(--pink);
+  box-shadow: 0 0 6px var(--pink);
+}
+.s-cyan {
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+}
+.s-gold {
+  background: #ffaa00;
+  box-shadow: 0 0 6px #ffaa00;
+}
+.s-green {
+  background: #00e676;
+  box-shadow: 0 0 6px #00e676;
+}
+
+/* ─── 7. COUNTDOWN TIMER ────────────────────────────────────────
+   3 boxes: HRS / MIN / SEC.
+   Numbers updated by script.js every second.
+─────────────────────────────────────────────────────────────── */
+.countdown-wrap {
+  margin-bottom: 38px;
+}
+
+.countdown-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.19em;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+}
+
+/* "// LIVE" badge after the label */
+.countdown-label::after {
+  content: "// LIVE";
+  color: var(--cyan);
+  margin-left: auto;
+}
+
+.countdown {
+  display: flex;
+  gap: 12px;
+}
+
+.cd-unit {
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Thin glow line at the top of each unit */
+.cd-unit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--violet2), transparent);
+}
+
+.cd-num {
+  font-family: var(--mono);
+  font-size: 42px; /* big and dramatic */
+  font-weight: 700;
+  color: var(--pink);
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(224, 64, 251, 0.5);
+}
+
+.cd-lbl {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+/* ─── 8. CTA BUTTONS ────────────────────────────────────────────
+   .btn-primary  : filled gradient
+   .btn-secondary: outlined ghost
+─────────────────────────────────────────────────────────────── */
+.hero-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 360px;
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  padding: 18px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--pink), var(--violet));
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 32px rgba(224, 64, 251, 0.35);
+  transition: all 0.25s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 54px rgba(224, 64, 251, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  padding: 17px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: 1.5px solid rgba(224, 64, 251, 0.4);
+  color: var(--pink);
+  transition: all 0.25s;
+}
+
+.btn-secondary:hover {
+  background: rgba(224, 64, 251, 0.08);
+  border-color: var(--pink);
+}
+
+/* ─── 9. SECTION SHARED STYLES ──────────────────────────────────
+   All <section> elements share these padding / typography rules.
+─────────────────────────────────────────────────────────────── */
+section {
+  padding: 110px 64px;
+  position: relative;
+}
+
+/* Alternate sections get slightly lighter bg */
+#mission,
+#rules,
+#support,
+#win {
+  background: var(--bg2);
+}
+
+/* "// SUBTITLE" eyebrow label above headings */
+.sec-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sec-eyebrow::before {
+  content: "//";
+}
+
+/* Section main heading */
+.sec-title {
+  font-family: var(--raj);
+  font-size: clamp(30px, 4.2vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.sec-title em {
+  color: var(--pink);
+  font-style: normal;
+}
+
+/* Short lead paragraph below heading */
+.sec-lead {
+  font-size: 17px; /* ↑ increased */
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 0;
+}
+
+/* Horizontal rule between sections */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--border),
+    rgba(224, 64, 251, 0.2),
+    var(--border)
+  );
+}
+
+/* ─── 10. MISSION / DOSSIER ─────────────────────────────────────
+   Left: dossier panel with terminal log.
+   Right: intel cards.
+─────────────────────────────────────────────────────────────── */
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+/* Dossier file panel */
+.dossier {
+  background: rgba(12, 8, 30, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dossier-header {
+  background: rgba(124, 58, 237, 0.12);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--violet2);
+  display: flex;
+  justify-content: space-between;
+}
+
+.dossier-body {
+  padding: 28px;
+}
+
+.dossier-body p {
+  font-size: 15.5px; /* ↑ increased */
+  line-height: 1.85;
+  color: rgba(226, 217, 243, 0.82);
+  margin-bottom: 18px;
+}
+
+.dossier-body p:last-child {
+  margin-bottom: 0;
+}
+.dossier-body strong {
+  color: var(--pink);
+}
+
+/* ████ redacted-looking spans */
+.redacted {
+  background: var(--muted);
+  color: transparent;
+  border-radius: 2px;
+  padding: 0 4px;
+  user-select: none;
+  display: inline-block;
+}
+
+/* Terminal log box inside dossier */
+.terminal-log {
+  background: rgba(0, 0, 0, 0.52);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-top: 26px;
+  font-family: var(--mono);
+  font-size: 12.5px; /* ↑ increased */
+  line-height: 2.1;
+}
+
+.t-err {
+  color: #ff4444;
+}
+.t-warn {
+  color: var(--pink);
+}
+.t-info {
+  color: var(--text);
+}
+.t-ok {
+  color: #00e676;
+}
+
+/* Blinking cursor after last line */
+.cursor {
+  display: inline-block;
+  width: 9px;
+  height: 15px;
+  background: var(--pink);
+  margin-left: 3px;
+  vertical-align: -3px;
+  animation: blink 0.9s step-end infinite;
+}
+
+/* Intel cards on the right column */
+.mission-right {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.intel-card {
+  background: rgba(12, 8, 30, 0.65);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left accent bar */
+.intel-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--pink), var(--violet));
+}
+
+.intel-card--cyan::before {
+  background: linear-gradient(180deg, var(--cyan), var(--violet));
+}
+
+.intel-card h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.17em;
+  color: var(--pink);
+  margin-bottom: 10px;
+}
+
+.intel-card p {
+  font-size: 15px; /* ↑ increased */
+  line-height: 1.8;
+  color: rgba(226, 217, 243, 0.78);
+}
+
+/* ─── 11. ROLES CARDS ───────────────────────────────────────────
+   Two cards side-by-side.
+─────────────────────────────────────────────────────────────── */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 64px;
+}
+
+.role-card {
+  background: rgba(12, 8, 30, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.role-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 64px rgba(124, 58, 237, 0.22);
+}
+
+/* Subtle gradient overlay on hover */
+.role-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), transparent);
+  pointer-events: none;
+}
+
+/* Icon badge */
+.role-accent {
+  width: 52px;
+  height: 52px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 22px;
+}
+
+.role-accent--strike {
+  background: rgba(224, 64, 251, 0.14);
+  border: 1px solid rgba(224, 64, 251, 0.3);
+}
+
+.role-accent--watch {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+}
+
+.role-card h3 {
+  font-family: var(--raj);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.codename {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.17em;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* Bullet list */
+.role-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-card ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 15px; /* ↑ increased */
+  line-height: 1.6;
+  color: rgba(226, 217, 243, 0.78);
+}
+
+.role-card ul li::before {
+  content: "›";
+  color: var(--pink);
+  font-size: 18px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+/* ─── 12. RULES GRID ────────────────────────────────────────────
+   8 rules in a 2×4 grid.
+─────────────────────────────────────────────────────────────── */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 64px;
+}
+
+.rule-card {
+  background: rgba(12, 8, 30, 0.62);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 28px 32px;
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+
+.rule-card:hover {
+  border-color: rgba(224, 64, 251, 0.42);
+  background: rgba(124, 58, 237, 0.06);
+}
+
+/* Large faint rule number */
+.rule-num {
+  font-family: var(--mono);
+  font-size: 26px;
+  color: rgba(224, 64, 251, 0.32);
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 34px;
+}
+
+.rule-text {
+  font-size: 15.5px; /* ↑ increased */
+  line-height: 1.7;
+  color: rgba(226, 217, 243, 0.84);
+}
+
+/* ─── 13. TIMELINE ──────────────────────────────────────────────
+   4-stage horizontal mission flow.
+─────────────────────────────────────────────────────────────── */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+
+/* Connecting line between nodes */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 46px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--violet),
+    var(--pink),
+    var(--violet),
+    var(--pink)
+  );
+  opacity: 0.38;
+}
+
+.tl-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 22px;
+  position: relative;
+}
+
+/* Circular icon node */
+.tl-node {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.tl-item:hover .tl-node {
+  border-color: var(--pink);
+  box-shadow: 0 0 32px rgba(224, 64, 251, 0.3);
+}
+
+.tl-time {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--violet2);
+  margin-bottom: 9px;
+}
+
+.tl-title {
+  font-family: var(--raj);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.tl-desc {
+  font-size: 14px; /* ↑ slightly increased */
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.tl-dur {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--pink);
+  margin-top: 10px;
+}
+
+/* ─── 14. FORCE SUPPORT ─────────────────────────────────────────
+   Centered panel explaining the hint system.
+─────────────────────────────────────────────────────────────── */
+.support-inner {
+  max-width: 920px;
+  margin: 64px auto 0;
+  background: rgba(12, 8, 30, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.support-header {
+  background: rgba(0, 229, 255, 0.06);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+  padding: 22px 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.support-header h3 {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.19em;
+  color: var(--cyan);
+}
+
+.support-header span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.support-body {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.support-left p {
+  font-size: 15.5px; /* ↑ increased */
+  line-height: 1.85;
+  color: rgba(226, 217, 243, 0.82);
+  margin-bottom: 18px;
+}
+
+.support-left p:last-child {
+  margin-bottom: 0;
+}
+.support-left strong {
+  color: var(--cyan);
+}
+
+.support-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.support-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(0, 229, 255, 0.04);
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 9px;
+  padding: 16px 18px;
+}
+
+.support-step-num {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--cyan);
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.support-step-text {
+  font-size: 14.5px; /* ↑ increased */
+  line-height: 1.65;
+  color: rgba(226, 217, 243, 0.78);
+}
+
+.support-step-text strong {
+  color: var(--cyan);
+}
+
+/* ─── 15. NODE CARDS ────────────────────────────────────────────
+   Rendered by script.js into #nodes-grid.
+   Cards have a reveal-hint toggle and CTFd link.
+─────────────────────────────────────────────────────────────── */
+.nodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 22px;
+  margin-top: 64px;
+}
+
+.node-card {
+  background: rgba(12, 8, 30, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    border-color 0.3s;
+}
+
+.node-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 54px rgba(124, 58, 237, 0.22);
+  border-color: rgba(224, 64, 251, 0.42);
+}
+
+/* Gradient overlay tint on hover */
+.node-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(224, 64, 251, 0.06), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.node-card:hover::before {
+  opacity: 1;
+}
+
+/* Top row: icon + meta + pts badge */
+.node-card-top {
+  padding: 22px 24px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.node-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid var(--border);
+}
+
+.node-meta {
+  flex: 1;
+}
+
+.node-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.node-title {
+  font-family: var(--raj);
+  font-size: 17px; /* ↑ increased */
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+/* Category pill */
+.node-cat {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.cat-crypto {
+  background: rgba(124, 58, 237, 0.2);
+  color: var(--violet2);
+}
+.cat-web {
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--cyan);
+}
+.cat-forensics {
+  background: rgba(255, 170, 0, 0.1);
+  color: #ffaa00;
+}
+.cat-osint {
+  background: rgba(0, 230, 118, 0.1);
+  color: #00e676;
+}
+.cat-logic {
+  background: rgba(255, 45, 120, 0.1);
+  color: var(--pink2);
+}
+.cat-misc {
+  background: rgba(150, 150, 150, 0.1);
+  color: #aaaaaa;
+}
+
+/* Points badge top-right */
+.pts-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(224, 64, 251, 0.1);
+  border: 1px solid rgba(224, 64, 251, 0.25);
+  color: var(--pink);
+  white-space: nowrap;
+}
+
+/* Challenge description text */
+.node-desc {
+  padding: 0 24px 16px;
+  font-size: 14.5px; /* ↑ increased */
+  line-height: 1.7;
+  color: rgba(226, 217, 243, 0.72);
+}
+
+/* Code / cipher block */
+.node-code {
+  margin: 0 24px 16px;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(0, 229, 255, 0.14);
+  border-radius: 7px;
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 12px; /* ↑ slightly increased */
+  color: var(--cyan);
+  line-height: 1.75;
+  word-break: break-all;
+}
+
+.node-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 24px;
+}
+
+/* Footer row: hint btn + CTFd solve btn */
+.node-footer {
+  padding: 16px 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.hint-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.hint-btn:hover {
+  color: var(--violet2);
+  border-color: var(--violet2);
+}
+
+.solve-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 9px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: linear-gradient(
+    135deg,
+    rgba(224, 64, 251, 0.14),
+    rgba(124, 58, 237, 0.14)
+  );
+  border: 1px solid rgba(224, 64, 251, 0.35);
+  color: var(--pink);
+  transition: all 0.2s;
+  flex: 1;
+  text-align: center;
+  display: block;
+}
+
+.solve-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(224, 64, 251, 0.25),
+    rgba(124, 58, 237, 0.25)
+  );
+  box-shadow: 0 0 22px rgba(224, 64, 251, 0.2);
+}
+
+/* Hidden hint panel (toggled by JS) */
+.hint-content {
+  display: none;
+  padding: 14px 24px 18px;
+  background: rgba(255, 170, 0, 0.04);
+  border-top: 1px solid rgba(255, 170, 0, 0.12);
+  font-size: 13px; /* ↑ slightly increased */
+  line-height: 1.7;
+  color: rgba(226, 217, 243, 0.72);
+  font-family: var(--mono);
+}
+
+.hint-content.open {
+  display: block;
+}
+
+.hint-label {
+  font-size: 9.5px;
+  letter-spacing: 0.19em;
+  color: #ffaa00;
+  margin-bottom: 7px;
+}
+
+/* ─── 16. WIN CONDITION ─────────────────────────────────────────
+   Centered capstone section.
+─────────────────────────────────────────────────────────────── */
+.win-inner {
+  max-width: 800px;
+  margin: 64px auto 0;
+  text-align: center;
+}
+
+.win-icon {
+  font-size: 60px;
+  margin-bottom: 26px;
+  display: block;
+  animation: winPulse 2s ease-in-out infinite;
+}
+
+.win-title {
+  font-family: var(--raj);
+  font-size: 38px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.win-lead {
+  font-size: 17px; /* ↑ increased */
+  line-height: 1.85;
+  color: var(--muted);
+  margin-bottom: 44px;
+}
+
+.win-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 44px;
+}
+
+.win-step {
+  background: rgba(12, 8, 30, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 28px 22px;
+}
+
+.win-step-num {
+  font-family: var(--mono);
+  font-size: 30px;
+  color: var(--pink);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.win-step h4 {
+  font-family: var(--raj);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.win-step p {
+  font-size: 14.5px; /* ↑ increased */
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Override key terminal display */
+.override-key {
+  background: rgba(0, 0, 0, 0.52);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 9px;
+  padding: 22px 30px;
+  font-family: var(--mono);
+  font-size: 13.5px; /* ↑ increased */
+  color: var(--cyan);
+  text-align: left;
+  line-height: 2.2;
+  word-break: break-all;
+}
+
+.ok-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* ─── 17. FOOTER ────────────────────────────────────────────────
+   ✏ Edit club name and college in index.html → <footer>.
+─────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 44px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 2;
+}
+
+.footer-left strong {
+  color: var(--pink);
+}
+
+.footer-right {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 2;
+}
+
+/* ─── 18. UTILITY CLASSES ───────────────────────────────────────
+   Reusable helpers.
+─────────────────────────────────────────────────────────────── */
+.pink-text {
+  color: var(--pink);
+}
+.cyan-text {
+  color: var(--cyan);
+}
+
+/* ─── 19. ANIMATIONS & KEYFRAMES ────────────────────────────────
+   All @keyframes grouped here for easy reference.
+─────────────────────────────────────────────────────────────── */
+
+/* Blinking dot (nav logo, status pill) */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.38;
+  }
+}
+
+/* Blinking text cursor */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Scrolling ticker text */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* CRT scanline animation */
+@keyframes scanMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 40px;
+  }
+}
+
+/* Hero title glitch */
+@keyframes glitch {
+  0%,
+  92%,
+  100% {
+    text-shadow: none;
+    transform: translateX(0);
+  }
+  93% {
+    text-shadow: -2px 0 var(--cyan);
+    transform: translateX(-1px);
+  }
+  95% {
+    text-shadow: 2px 0 var(--pink);
+    transform: translateX(1px);
+  }
+  97% {
+    text-shadow: none;
+    transform: translateX(0);
+  }
+}
+
+.glitch {
+  animation: glitch 5s ease-in-out infinite;
+}
+
+/* Win icon pulse */
+@keyframes winPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px var(--pink));
+  }
+  50% {
+    filter: drop-shadow(0 0 24px var(--pink))
+      drop-shadow(0 0 50px var(--violet));
+  }
+}
+
+/* ─── 20. RESPONSIVE — MOBILE ───────────────────────────────────
+   Collapses grid to single column on narrow screens.
+─────────────────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  nav {
+    padding: 0 22px;
+  }
+  .nav-links {
+    display: none;
+  } /* hide nav links on mobile */
+
+  #hero {
+    grid-template-columns: 1fr;
+    padding: 90px 22px 100px;
+    min-height: auto;
+  }
+
+  .hero-right {
+    display: none;
+  } /* hide operative image on mobile */
+
+  section {
+    padding: 80px 22px;
+  }
+
+  /* Stack all two-column grids to one column */
+  .mission-grid,
+  .roles-grid,
+  .rules-grid,
+  .support-body,
+  .win-steps {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack timeline vertically */
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .tl-item {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 18px;
+  }
+
+  .tl-node {
+    margin-right: 0;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-right {
+    text-align: center;
+  }
+}

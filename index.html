@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OPERATION OVERRIDE — ISSA Club, NIE</title>
+
+    <!-- Google Fonts: Share Tech Mono (terminal text), Rajdhani (headings) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- All styles in style.css -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════
+       NAV BAR — fixed top
+       Change CTFd link on .nav-cta below
+  ═══════════════════════════════════ -->
+    <nav>
+      <div class="nav-logo">
+        <div class="nav-dot"></div>
+        <!-- FIX #8: Removed <em> wrapping inside <span> — use CSS for italics if needed -->
+        <span>OPERATION <span class="nav-override">OVERRIDE</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#mission">MISSION</a></li>
+        <li><a href="#roles">ROLES</a></li>
+        <li><a href="#rules">RULES</a></li>
+        <li><a href="#flow">FLOW</a></li>
+        <li><a href="#support">SUPPORT</a></li>
+        <li><a href="#nodes">NODES</a></li>
+      </ul>
+      <!-- ✏ Replace with your CTFd event URL -->
+      <a href="https://ctfd.io" target="_blank" class="nav-cta">ACCESS NODES</a>
+    </nav>
+
+    <!-- ═══════════════════════════════════
+       SCROLLING ALERT TICKER
+       FIX #7: Added inline fallback content so the bar is visible even without style.css
+       Edit ticker text inside style.css → .warn-bar::before
+  ═══════════════════════════════════ -->
+    <div class="warn-bar" aria-label="Warning: Protocol Zero active — Evidence purge in progress — All operatives deploy immediately — Override window is closing">
+    </div>
+
+    <!-- ═══════════════════════════════════
+       HERO SECTION
+       Left: headline, countdown, buttons
+       Right: hooded operative SVG figure
+       Bottom: stats bar
+  ═══════════════════════════════════ -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid-lines"></div>
+
+      <!-- LEFT SIDE -->
+      <div class="hero-left">
+        <div class="status-pill">
+          <div class="status-pill-dot"></div>
+          PROTOCOL ZERO — ACTIVE
+        </div>
+
+        <h1 class="hero-title glitch">
+          OPERATION<br />
+          <span class="hero-title-block">OVERRIDE</span>
+        </h1>
+
+        <p class="hero-sub">
+          The arrest was only the beginning.
+          <em>Protocol Zero is live.</em> Eleven override fragments are
+          scattered across encrypted nodes. Recover them all, or watch the
+          evidence burn forever.
+        </p>
+
+        <!-- Countdown: JS fills cd-h / cd-m / cd-s every second -->
+        <div class="countdown-wrap">
+          <div class="countdown-label">SELF-DESTRUCT COUNTDOWN</div>
+          <div class="countdown">
+            <div class="cd-unit">
+              <!-- FIX #3: Initial display is now empty — JS fills on load immediately -->
+              <div class="cd-num" id="cd-h">--</div>
+              <div class="cd-lbl">HRS</div>
+            </div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-m">--</div>
+              <div class="cd-lbl">MIN</div>
+            </div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-s">--</div>
+              <div class="cd-lbl">SEC</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-btns">
+          <a href="#mission" class="btn-primary">▶ &nbsp;ENTER MISSION BRIEF</a>
+          <a href="#nodes" class="btn-secondary"
+            >◎ &nbsp;ACCESS CHALLENGE NODES</a
+          >
+        </div>
+      </div>
+      <!-- /hero-left -->
+
+      <!-- RIGHT SIDE — hooded operative -->
+      <div class="hero-right">
+        <div class="operative-bg"></div>
+
+        <!--
+        ✏ TO USE YOUR OWN IMAGE:
+           1. Save image as assets/operative.jpg  (dark hooded hacker, no bg)
+           2. Delete the entire <div class="op-art"> block below
+           3. Uncomment this line:
+           <img src="assets/operative.jpg" class="operative-img" alt="VORTEX Operative" />
+      -->
+        <div class="op-art" aria-hidden="true">
+          <!-- Cybercrime hooded hacker SVG — dark violet + cyan palette -->
+          <svg viewBox="0 0 480 700" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="bodyGlow" cx="50%" cy="42%" r="52%">
+                <stop offset="0%" stop-color="#6b21a8" stop-opacity=".55" />
+                <stop offset="65%" stop-color="#3b0764" stop-opacity=".2" />
+                <stop offset="100%" stop-color="#07040f" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00e5ff" stop-opacity=".25" />
+                <stop offset="100%" stop-color="#00e5ff" stop-opacity="0" />
+              </radialGradient>
+              <filter id="softBlur"><feGaussianBlur stdDeviation="3" /></filter>
+              <filter id="glowFx">
+                <feGaussianBlur stdDeviation="2.5" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Background radial glow -->
+            <ellipse
+              cx="240"
+              cy="310"
+              rx="230"
+              ry="300"
+              fill="url(#bodyGlow)"
+            />
+
+            <!-- Ground shadow -->
+            <ellipse
+              cx="240"
+              cy="672"
+              rx="145"
+              ry="18"
+              fill="rgba(0,0,0,.55)"
+              filter="url(#softBlur)"
+            />
+
+            <!-- ── TRENCH COAT (body silhouette) ── -->
+            <path
+              d="M 115 330 Q 82 395 68 500 Q 58 580 62 670
+                   L 418 670 Q 422 580 412 500 Q 398 395 365 330
+                   Q 322 298 240 292 Q 158 298 115 330 Z"
+              fill="#0c061e"
+              stroke="rgba(124,58,237,.28)"
+              stroke-width="1.2"
+            />
+
+            <!-- Coat side-panel shading (depth) -->
+            <path
+              d="M 115 330 Q 84 420 74 530 Q 72 590 76 640 L 162 640 L 178 400 L 148 332 Z"
+              fill="rgba(18,7,42,.75)"
+            />
+            <path
+              d="M 365 330 Q 396 420 406 530 Q 408 590 404 640 L 318 640 L 302 400 L 332 332 Z"
+              fill="rgba(18,7,42,.75)"
+            />
+
+            <!-- Belt detail -->
+            <rect
+              x="156"
+              y="445"
+              width="168"
+              height="9"
+              rx="3"
+              fill="rgba(157,78,221,.18)"
+              stroke="rgba(157,78,221,.38)"
+              stroke-width=".8"
+            />
+
+            <!-- Coat bottom hem -->
+            <path
+              d="M 64 658 Q 150 646 240 643 Q 330 646 416 658"
+              fill="none"
+              stroke="rgba(124,58,237,.22)"
+              stroke-width="1.5"
+            />
+
+            <!-- Shoulders -->
+            <path
+              d="M 96 318 Q 128 284 176 274 L 182 292 Q 148 300 122 326 Z"
+              fill="#160636"
+            />
+            <path
+              d="M 384 318 Q 352 284 304 274 L 298 292 Q 332 300 358 326 Z"
+              fill="#160636"
+            />
+
+            <!-- Neck -->
+            <rect
+              x="216"
+              y="236"
+              width="48"
+              height="60"
+              rx="6"
+              fill="#18093c"
+              stroke="rgba(157,78,221,.12)"
+              stroke-width=".8"
+            />
+
+            <!-- ── HOOD ── -->
+            <!-- Hood shadow -->
+            <ellipse
+              cx="244"
+              cy="166"
+              rx="120"
+              ry="128"
+              fill="rgba(0,0,0,.45)"
+              filter="url(#softBlur)"
+              transform="translate(4,10)"
+            />
+            <!-- Hood main -->
+            <ellipse cx="240" cy="160" rx="118" ry="126" fill="#0b051c" />
+            <!-- Hood fabric folds -->
+            <path
+              d="M 122 160 Q 115 102 138 62 Q 158 28 200 16 Q 176 48 170 92 Q 164 130 160 160 Z"
+              fill="#110728"
+            />
+            <path
+              d="M 358 160 Q 365 102 342 62 Q 322 28 280 16 Q 304 48 310 92 Q 316 130 320 160 Z"
+              fill="#110728"
+            />
+            <!-- Hood inner shadow (frames the face) -->
+            <ellipse cx="240" cy="184" rx="88" ry="94" fill="#06020e" />
+            <!-- Screen light reflecting on face -->
+            <ellipse
+              cx="240"
+              cy="196"
+              rx="70"
+              ry="76"
+              fill="rgba(0,229,255,.07)"
+            />
+
+            <!-- ── FACE (mostly hidden in shadow) ── -->
+            <ellipse cx="240" cy="202" rx="58" ry="64" fill="#110720" />
+
+            <!-- Brow ridge -->
+            <path
+              d="M 192 176 Q 216 166 240 164 Q 264 166 288 176
+                   Q 268 180 240 178 Q 212 180 192 176 Z"
+              fill="rgba(0,0,0,.65)"
+            />
+
+            <!-- Eye socket shadows -->
+            <ellipse cx="216" cy="196" rx="17" ry="11" fill="rgba(0,0,0,.85)" />
+            <ellipse cx="264" cy="196" rx="17" ry="11" fill="rgba(0,0,0,.85)" />
+
+            <!-- Glowing eyes (cyan threat) -->
+            <ellipse
+              cx="216"
+              cy="196"
+              rx="9"
+              ry="6"
+              fill="none"
+              stroke="#00e5ff"
+              stroke-width="1.6"
+              opacity=".9"
+              filter="url(#glowFx)"
+            />
+            <ellipse
+              cx="264"
+              cy="196"
+              rx="9"
+              ry="6"
+              fill="none"
+              stroke="#00e5ff"
+              stroke-width="1.6"
+              opacity=".9"
+              filter="url(#glowFx)"
+            />
+            <circle cx="216" cy="196" r="4.5" fill="#00b8d4" opacity=".65" />
+            <circle cx="264" cy="196" r="4.5" fill="#00b8d4" opacity=".65" />
+            <!-- Eye highlight specks -->
+            <circle cx="218" cy="194" r="1.8" fill="#fff" opacity=".55" />
+            <circle cx="266" cy="194" r="1.8" fill="#fff" opacity=".55" />
+
+            <!-- Nose bridge -->
+            <path
+              d="M 238 204 L 234 224 L 246 224 L 242 204 Z"
+              fill="rgba(0,0,0,.38)"
+            />
+            <!-- Mouth line -->
+            <path
+              d="M 220 234 Q 240 239 260 234"
+              fill="none"
+              stroke="rgba(80,40,120,.55)"
+              stroke-width="1.6"
+            />
+
+            <!-- ── HOOD EDGE LIGHTING ── -->
+            <path
+              d="M 158 62 Q 198 26 240 18 Q 282 26 322 62"
+              fill="none"
+              stroke="rgba(124,58,237,.45)"
+              stroke-width="1.2"
+            />
+            <path
+              d="M 123 160 Q 127 92 164 46"
+              fill="none"
+              stroke="rgba(157,78,221,.32)"
+              stroke-width="1.5"
+            />
+            <path
+              d="M 357 160 Q 353 92 316 46"
+              fill="none"
+              stroke="rgba(157,78,221,.32)"
+              stroke-width="1.5"
+            />
+
+            <!-- ── CIRCUIT TRACES ON HOOD ── -->
+            <g
+              stroke="#00e5ff"
+              stroke-width="1.2"
+              fill="none"
+              opacity=".6"
+              filter="url(#glowFx)"
+            >
+              <!-- Left branch -->
+              <path d="M 158 104 L 145 80 L 160 66 L 174 54" />
+              <path d="M 145 80 L 132 84" />
+              <path d="M 160 66 L 160 55" />
+              <circle cx="145" cy="80" r="2.8" fill="#00e5ff" />
+              <circle cx="160" cy="66" r="2.2" fill="#00e5ff" />
+              <circle
+                cx="174"
+                cy="54"
+                r="3.2"
+                fill="#e040fb"
+                stroke="#e040fb"
+                stroke-width="0"
+              />
+              <!-- Right branch -->
+              <path d="M 322 104 L 335 80 L 320 66 L 306 54" />
+              <path d="M 335 80 L 348 84" />
+              <path d="M 320 66 L 320 55" />
+              <circle cx="335" cy="80" r="2.8" fill="#00e5ff" />
+              <circle cx="320" cy="66" r="2.2" fill="#00e5ff" />
+              <circle
+                cx="306"
+                cy="54"
+                r="3.2"
+                fill="#e040fb"
+                stroke="#e040fb"
+                stroke-width="0"
+              />
+            </g>
+            <!-- Top centre node -->
+            <g
+              stroke="#e040fb"
+              stroke-width="1.2"
+              fill="none"
+              opacity=".72"
+              filter="url(#glowFx)"
+            >
+              <circle cx="240" cy="18" r="4.5" fill="#e040fb" />
+              <path d="M 240 13 L 240 4 M 235 18 L 224 18 M 245 18 L 256 18" />
+              <circle cx="224" cy="18" r="2.2" fill="#e040fb" />
+              <circle cx="256" cy="18" r="2.2" fill="#e040fb" />
+            </g>
+
+            <!-- ── ARMS ── -->
+            <path
+              d="M 115 330 Q 90 392 80 452 Q 74 492 82 522
+                   L 112 517 Q 108 484 115 448 Q 126 396 148 338 Z"
+              fill="#0c061e"
+              stroke="rgba(124,58,237,.18)"
+              stroke-width=".8"
+            />
+            <path
+              d="M 365 330 Q 390 392 400 452 Q 406 492 398 522
+                   L 368 517 Q 372 484 365 448 Q 354 396 332 338 Z"
+              fill="#0c061e"
+              stroke="rgba(124,58,237,.18)"
+              stroke-width=".8"
+            />
+
+            <!-- ── HANDS ── -->
+            <path
+              d="M 82 517 Q 76 533 82 548 L 128 552 Q 137 548 139 533 L 128 522 Z"
+              fill="#18083a"
+            />
+            <path
+              d="M 398 517 Q 404 533 398 548 L 352 552 Q 343 548 341 533 L 352 522 Z"
+              fill="#18083a"
+            />
+
+            <!-- ── HOLOGRAPHIC DISPLAY (in hands area) ── -->
+            <ellipse
+              cx="176"
+              cy="500"
+              rx="58"
+              ry="42"
+              fill="url(#screenGlow)"
+              filter="url(#softBlur)"
+            />
+
+            <!-- Main holo screen -->
+            <rect
+              x="96"
+              y="468"
+              width="136"
+              height="84"
+              rx="7"
+              fill="rgba(0,0,0,.65)"
+              stroke="rgba(0,229,255,.38)"
+              stroke-width="1"
+            />
+            <!-- Header row -->
+            <rect
+              x="96"
+              y="468"
+              width="136"
+              height="16"
+              rx="7"
+              fill="rgba(0,229,255,.08)"
+            />
+            <text
+              x="110"
+              y="480"
+              font-family="Share Tech Mono,monospace"
+              font-size="7.5"
+              fill="#00e5ff"
+              opacity=".88"
+            >
+              VORTEX :: NODE BREACH
+            </text>
+            <!-- Data lines -->
+            <line
+              x1="108"
+              y1="492"
+              x2="222"
+              y2="492"
+              stroke="rgba(0,229,255,.28)"
+              stroke-width=".9"
+            />
+            <line
+              x1="108"
+              y1="503"
+              x2="208"
+              y2="503"
+              stroke="rgba(0,229,255,.2)"
+              stroke-width=".9"
+            />
+            <line
+              x1="108"
+              y1="514"
+              x2="218"
+              y2="514"
+              stroke="rgba(0,229,255,.2)"
+              stroke-width=".9"
+            />
+            <line
+              x1="108"
+              y1="525"
+              x2="196"
+              y2="525"
+              stroke="rgba(0,229,255,.14)"
+              stroke-width=".9"
+            />
+            <!-- Decrypt button -->
+            <rect
+              x="108"
+              y="535"
+              width="58"
+              height="13"
+              rx="3"
+              fill="rgba(224,64,251,.18)"
+              stroke="rgba(224,64,251,.5)"
+              stroke-width=".8"
+            />
+            <text
+              x="137"
+              y="545"
+              font-family="Share Tech Mono,monospace"
+              font-size="6.5"
+              fill="#e040fb"
+              text-anchor="middle"
+            >
+              DECRYPT
+            </text>
+
+            <!-- Side mini panel -->
+            <rect
+              x="264"
+              y="482"
+              width="84"
+              height="54"
+              rx="5"
+              fill="rgba(0,0,0,.58)"
+              stroke="rgba(124,58,237,.38)"
+              stroke-width=".8"
+            />
+            <text
+              x="275"
+              y="497"
+              font-family="Share Tech Mono,monospace"
+              font-size="6.5"
+              fill="#9d4edd"
+              opacity=".88"
+            >
+              NODE_07
+            </text>
+            <line
+              x1="275"
+              y1="504"
+              x2="338"
+              y2="504"
+              stroke="rgba(157,78,221,.28)"
+              stroke-width=".8"
+            />
+            <line
+              x1="275"
+              y1="512"
+              x2="332"
+              y2="512"
+              stroke="rgba(157,78,221,.18)"
+              stroke-width=".8"
+            />
+            <line
+              x1="275"
+              y1="520"
+              x2="326"
+              y2="520"
+              stroke="rgba(157,78,221,.18)"
+              stroke-width=".8"
+            />
+            <rect
+              x="275"
+              y="526"
+              width="42"
+              height="7"
+              rx="2"
+              fill="rgba(0,229,255,.12)"
+              stroke="rgba(0,229,255,.32)"
+              stroke-width=".5"
+            />
+
+            <!-- ── COLLAR / CHEST TECH ── -->
+            <path
+              d="M 184 274 Q 169 286 166 316 L 190 322 Q 192 292 206 278 Z"
+              fill="#160540"
+              stroke="rgba(157,78,221,.18)"
+              stroke-width=".8"
+            />
+            <path
+              d="M 296 274 Q 311 286 314 316 L 290 322 Q 288 292 274 278 Z"
+              fill="#160540"
+              stroke="rgba(157,78,221,.18)"
+              stroke-width=".8"
+            />
+
+            <!-- Chest panel -->
+            <rect
+              x="208"
+              y="338"
+              width="64"
+              height="44"
+              rx="5"
+              fill="rgba(10,4,26,.9)"
+              stroke="rgba(157,78,221,.28)"
+              stroke-width=".8"
+            />
+            <circle
+              cx="240"
+              cy="354"
+              r="9"
+              fill="none"
+              stroke="rgba(0,229,255,.38)"
+              stroke-width="1.2"
+            />
+            <circle cx="240" cy="354" r="4.5" fill="rgba(0,229,255,.12)" />
+            <circle cx="240" cy="354" r="2" fill="#00e5ff" opacity=".75" />
+            <text
+              x="240"
+              y="382"
+              font-family="Share Tech Mono,monospace"
+              font-size="5.5"
+              fill="rgba(157,78,221,.55)"
+              text-anchor="middle"
+            >
+              ID::GHOST-07
+            </text>
+
+            <!-- ── AMBIENT FLOATING PARTICLES ── -->
+            <g fill="#e040fb" opacity=".45" filter="url(#glowFx)">
+              <circle cx="80" cy="208" r="1.8" />
+              <circle cx="66" cy="358" r="1.2" />
+              <circle cx="400" cy="190" r="1.8" />
+              <circle cx="414" cy="312" r="1.2" />
+              <circle cx="148" cy="630" r="1.2" />
+              <circle cx="354" cy="610" r="1.8" />
+            </g>
+            <g fill="#00e5ff" opacity=".35" filter="url(#glowFx)">
+              <circle cx="92" cy="430" r="1.2" />
+              <circle cx="392" cy="430" r="1.2" />
+              <circle cx="134" cy="592" r="1.8" />
+              <circle cx="374" cy="572" r="1.2" />
+            </g>
+          </svg>
+        </div>
+        <!-- /op-art -->
+
+        <!-- Floating text labels over the operative -->
+        <div class="op-overlay-text">
+          <span>ID :: GHOST-07</span>
+          <span>STATUS :: DEFECTED</span>
+        </div>
+        <div class="fragments-counter">
+          <div>FRAGMENTS // <strong>11</strong></div>
+          <div>SIGNAL // <strong class="pink-text">ENCRYPTED</strong></div>
+        </div>
+      </div>
+      <!-- /hero-right -->
+
+      <!-- Stats bar at the very bottom of hero -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-dot s-pink"></div>
+          <span>OPERATIVES &nbsp;</span><strong>120+</strong>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-dot s-cyan"></div>
+          <span>FRAGMENTS &nbsp;</span><strong>11</strong>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-dot s-gold"></div>
+          <span>OVERRIDE KEY &nbsp;</span><strong>1</strong>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-dot s-green"></div>
+          <span>DURATION &nbsp;</span><strong>2 HOURS</strong>
+        </div>
+      </div>
+    </section>
+    <!-- /hero -->
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       MISSION SECTION
+       Edit story paragraphs directly below.
+       Redacted spans use class="redacted".
+  ═══════════════════════════════════ -->
+    <section id="mission">
+      <div class="sec-eyebrow">
+        CLASSIFIED DOSSIER — LEVEL 5 CLEARANCE REQUIRED
+      </div>
+      <h2 class="sec-title">THE <em>REAL</em> MISSION</h2>
+      <p class="sec-lead">
+        VORTEX has fallen. But Protocol Zero hasn't. Every second counts.
+      </p>
+
+      <div class="mission-grid">
+        <div class="dossier">
+          <div class="dossier-header">
+            <span>CASE FILE :: VORTEX-0001</span>
+            <span>CLASSIFICATION: ████████</span>
+          </div>
+          <div class="dossier-body">
+            <p>
+              For months, a ghost syndicate called
+              <strong>VORTEX</strong> operated the world's most dangerous shadow
+              network — laundering money, silencing witnesses, and controlling
+              systems they were never supposed to touch.
+            </p>
+            <p>
+              Tonight, every operative was captured. Every safehouse — sealed.
+              But in the final second before the last arrest, VORTEX's commander
+              triggered <strong>PROTOCOL ZERO</strong>.
+            </p>
+            <p>
+              PROTOCOL ZERO is a self-destruct sequence with one purpose:
+              <strong
+                >destroy every piece of evidence before it reaches
+                court.</strong
+              >
+              Once it completes, the case collapses. VORTEX walks free.
+            </p>
+            <p>
+              The arrest was just the beginning.
+              <strong>The real mission starts now.</strong>
+            </p>
+            <!-- Live terminal readout -->
+            <div class="terminal-log">
+              <div class="t-err">
+                [ CRITICAL ] PROTOCOL ZERO — STAGE 2 INITIATED
+              </div>
+              <div class="t-warn">
+                [ WARN ] Evidence database purge: 34% complete
+              </div>
+              <div class="t-warn">
+                [ WARN ] Encrypted ledger wipe: IN PROGRESS
+              </div>
+              <div class="t-info">
+                [ INFO ] Former engineer identity:
+                <span class="redacted">GHOST-07</span>
+              </div>
+              <div class="t-ok">[ OK ] Override key fragments: 11 located</div>
+              <div class="t-ok">
+                [ OK ] Recovery window: OPEN<span class="cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mission-right">
+          <div class="intel-card">
+            <h4>// KNOWN VULNERABILITY</h4>
+            <p>
+              A former VORTEX engineer, before defecting, quietly split the
+              override code into <strong>eleven fragments</strong> — each hidden
+              inside a different locked node. The full override key can only be
+              assembled if all eleven fragments are recovered and combined.
+            </p>
+          </div>
+          <div class="intel-card">
+            <h4>// OPERATIVE INTEL — GHOST-07</h4>
+            <p>
+              Identity: <span class="redacted">████████████</span> &nbsp;
+              Status: DEFECTED<br />
+              Last known location: Encrypted relay node, Sector 7<br />
+              Motive: Eliminate VORTEX permanently. Left fragments as a trail.
+            </p>
+          </div>
+          <div class="intel-card">
+            <h4>// MISSION OBJECTIVE</h4>
+            <p>
+              Infiltrate encrypted network nodes. Recover all eleven override
+              fragments. Assemble the complete Override Key. Execute OPERATION
+              OVERRIDE before Protocol Zero completes its purge.
+            </p>
+          </div>
+          <!-- ✏ Change club/college name here -->
+          <div class="intel-card intel-card--cyan">
+            <h4 style="color: var(--cyan)">// ORGANISED BY</h4>
+            <p>
+              <strong style="color: #fff">ISSA Club — NIE College</strong><br />
+              Information Security Students Association<br />
+              National Institute of Engineering, Mysuru
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       ROLES SECTION
+       Two cards: Strike Force + Overwatch.
+       Edit bullet points to match your event.
+  ═══════════════════════════════════ -->
+    <section id="roles">
+      <div class="sec-eyebrow">PERSONNEL CLASSIFICATION</div>
+      <h2 class="sec-title">STRIKE FORCE <em>&amp;</em> OVERWATCH</h2>
+      <p class="sec-lead">
+        Every operative has a role. Know yours before the countdown reaches
+        zero.
+      </p>
+
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-accent role-accent--strike">⚔</div>
+          <h3>STRIKE FORCE</h3>
+          <div class="codename">CODENAME: PARTICIPANTS — TEAM SIZE: 2–3</div>
+          <ul>
+            <li>Deploy to encrypted challenge nodes simultaneously</li>
+            <li>Decrypt node contents and recover hidden fragments</li>
+            <li>Solve cryptography, web, forensics, and OSINT challenges</li>
+            <li>Protect your cell — no intel sharing across teams</li>
+            <li>Use Force Support Line wisely — hints carry point penalties</li>
+            <li>Assemble the Override Key and submit to Watcher Alpha</li>
+            <li>First complete, verified submission wins the operation</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <div class="role-accent role-accent--watch">👁</div>
+          <h3>SHADOW OVERWATCH</h3>
+          <div class="codename">CODENAME: THE WATCHERS — VOLUNTEERS</div>
+          <ul>
+            <li>
+              Mission control — you see everything, teams see only what you
+              allow
+            </li>
+            <li>Control encrypted nodes and release intelligence packets</li>
+            <li>Monitor the countdown and verify fragment submissions</li>
+            <li>Provide intercepted intelligence support (hint system)</li>
+            <li>Simulate live network responses to keep immersion alive</li>
+            <li>Run the Force Support Line — exchange hints for tasks</li>
+            <li>Watcher Alpha verifies and approves the final Override Key</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       RULES SECTION
+       8 rules in a 2-column grid.
+       Edit rule text in .rule-text divs.
+  ═══════════════════════════════════ -->
+    <section id="rules">
+      <div class="sec-eyebrow">RULES OF ENGAGEMENT</div>
+      <h2 class="sec-title">FIELD <em>DIRECTIVES</em></h2>
+      <p class="sec-lead">
+        Violating protocol terminates your operation. No exceptions.
+      </p>
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-num">01</div>
+          <div class="rule-text">
+            Every Strike Unit consists of 2–3 operatives. No solo runs, no
+            five-stack squads.
+            <!-- FIX #9: "five-stack stacks" → "five-stack squads" (duplicate word error) -->
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">02</div>
+          <div class="rule-text">
+            Nodes can be approached in any order — strategy beats sequence.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">03</div>
+          <div class="rule-text">
+            Speed is leverage. The leaderboard rewards the relentless.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">04</div>
+          <div class="rule-text">
+            Force Support hints are limited. Burn them when stuck, not when
+            bored.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">05</div>
+          <div class="rule-text">
+            No sabotage, no cross-team intel sharing, no outside tools beyond
+            what's permitted.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">06</div>
+          <div class="rule-text">
+            Any device contact with another team's screen is a compromise — you
+            sit out the next node.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">07</div>
+          <div class="rule-text">
+            The Watchers' word is final. All disputes go through Watcher Alpha
+            only.
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">08</div>
+          <div class="rule-text">
+            First Strike Unit to submit the verified Override Key takes the
+            operation.
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       FLOW / TIMELINE SECTION
+       4-stage mission timeline.
+       Edit tl-time / tl-title / tl-desc text.
+  ═══════════════════════════════════ -->
+    <section id="flow">
+      <div class="sec-eyebrow">OPERATION TIMELINE</div>
+      <h2 class="sec-title">MISSION <em>FLOW</em></h2>
+      <p class="sec-lead">
+        120 minutes. 11 fragments. One override key. No second chances.
+      </p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-node">📡</div>
+          <div class="tl-content">
+            <div class="tl-time">0:00 — 0:20</div>
+            <div class="tl-title">Mission Briefing</div>
+            <p class="tl-desc">
+              Story intro, rules, and team IDs distributed. Countdown clock
+              appears. Protocol Zero confirmed active.
+            </p>
+            <div class="tl-dur">20 MIN</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-node">🔓</div>
+          <div class="tl-content">
+            <div class="tl-time">0:20 — 1:30</div>
+            <div class="tl-title">The Key Hunt</div>
+            <p class="tl-desc">
+              All teams fan out simultaneously. Decrypt nodes, recover
+              fragments, protect your cell. Speed matters.
+            </p>
+            <div class="tl-dur">70 MIN</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-node">🔑</div>
+          <div class="tl-content">
+            <div class="tl-time">1:30 — 1:40</div>
+            <div class="tl-title">Override Assembly</div>
+            <p class="tl-desc">
+              First team to collect all fragments contacts Watcher Alpha and
+              assembles the complete Override Key.
+            </p>
+            <div class="tl-dur">10 MIN</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-node">🏆</div>
+          <div class="tl-content">
+            <div class="tl-time">1:40 — 2:00</div>
+            <div class="tl-title">Winners + Photos</div>
+            <p class="tl-desc">
+              Override confirmed. Evidence secured. VORTEX network collapsed.
+              Strike Force debrief and group photos.
+            </p>
+            <div class="tl-dur">20 MIN</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       FORCE SUPPORT LINE SECTION
+       Edit the 4 step descriptions below.
+  ═══════════════════════════════════ -->
+    <section id="support">
+      <div class="sec-eyebrow">FORCE SUPPORT PROTOCOL</div>
+      <h2 class="sec-title">INTERCEPTED <em>INTELLIGENCE</em> LINE</h2>
+      <div class="support-inner">
+        <div class="support-header">
+          <h3>// FORCE SUPPORT LINE — ACTIVE</h3>
+          <span>USE WISELY — LIMITED INTEL AVAILABLE</span>
+        </div>
+        <div class="support-body">
+          <div class="support-left">
+            <p>
+              Every Strike Unit has access to its assigned
+              <strong>Watcher</strong>. If you're stuck in the field, you can
+              request <strong>Intercepted Intelligence Support</strong> — but it
+              comes at a cost.
+            </p>
+            <p>
+              Your Watcher will ask you to complete a small task in exchange for
+              the hint. This keeps immersion alive even when a team genuinely
+              needs help. Use it strategically, not lazily.
+            </p>
+            <p>
+              On CTFd, hints carry a <strong>point penalty</strong>. Plan
+              accordingly.
+            </p>
+          </div>
+          <div class="support-steps">
+            <div class="support-step">
+              <div class="support-step-num">01</div>
+              <div class="support-step-text">
+                <strong>Contact your Watcher.</strong> Approach quietly and
+                confirm your team ID — do not shout across the room.
+              </div>
+            </div>
+            <div class="support-step">
+              <div class="support-step-num">02</div>
+              <div class="support-step-text">
+                <strong>Complete the exchange task.</strong> A fun challenge,
+                rapid-fire question, or physical activity. No exchange, no
+                intel.
+              </div>
+            </div>
+            <div class="support-step">
+              <div class="support-step-num">03</div>
+              <div class="support-step-text">
+                <strong>Receive intercepted intelligence.</strong> The Watcher
+                delivers one targeted hint for the locked node. Use it
+                immediately.
+              </div>
+            </div>
+            <div class="support-step">
+              <div class="support-step-num">04</div>
+              <div class="support-step-text">
+                <strong>On CTFd:</strong> unlock hints directly under the
+                challenge. Each hint carries a
+                <strong>−25 point penalty</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="divider"></div>
+
+    <!-- ═══════════════════════════════════
+       NODES SECTION
+       Cards are rendered by JS below from the nodes[] array.
+       ✏ To add/edit challenges: edit nodes[] in the <script> tag below.
+       FIX #5: Removed broken reference to external script.js — all JS is inline.
+  ═══════════════════════════════════ -->
+    <section id="nodes">
+      <div class="sec-eyebrow">
+        ENCRYPTED CHALLENGE NODES — 11 FRAGMENTS TOTAL
+      </div>
+      <h2 class="sec-title">INFILTRATE THE <em>NETWORK</em></h2>
+      <p class="sec-lead">
+        Each solved node releases one fragment. Solve all eleven to assemble the
+        Override Key. Replace the CTFd links below with your real challenge
+        URLs.
+      </p>
+
+      <div class="nodes-grid" id="nodes-grid">
+        <!-- JS renders nodes -->
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── WIN ───────────────────────────────────────────────────────────────── -->
+    <section id="win">
+      <div class="sec-eyebrow">WINNING CONDITION</div>
+      <h2 class="sec-title" style="text-align: center">
+        EXECUTE <em>OVERRIDE</em>
+      </h2>
+
+      <div class="win-inner">
+        <span class="win-icon">🔐</span>
+        <p class="win-lead">
+          PROTOCOL ZERO doesn't care who's winning — it only cares who finishes
+          first. The first team to collect all eleven fragments, assemble the
+          Override Key, and submit it to Watcher Alpha wins the operation.
+        </p>
+
+        <div class="win-steps">
+          <div class="win-step">
+            <div class="win-step-num">01</div>
+            <h4>COLLECT ALL 11</h4>
+            <p>
+              Recover every fragment by solving all eleven encrypted challenge
+              nodes on CTFd
+              <!-- FIX #6: "all 10" → "all eleven" (node 11 had wrong count) -->
+            </p>
+          </div>
+          <div class="win-step">
+            <div class="win-step-num">02</div>
+            <h4>CALL WATCHER ALPHA</h4>
+            <p>
+              The moment you have all fragments, contact Watcher Alpha
+              immediately — don't wait
+            </p>
+          </div>
+          <div class="win-step">
+            <div class="win-step-num">03</div>
+            <h4>ASSEMBLE &amp; SUBMIT</h4>
+            <!-- FIX #10: Unescaped & in "ASSEMBLE & SUBMIT" → &amp; -->
+            <p>
+              Physically or digitally combine all fragment answers into the
+              correct Override Key sequence
+            </p>
+          </div>
+        </div>
+
+        <!-- FIX #4: Removed plain-text flag — replaced with redacted placeholder.
+             The actual flag should ONLY exist inside CTFd, not on this public page. -->
+        <div class="override-key">
+          <span class="ok-label"
+            >// FINAL OVERRIDE KEY FORMAT — ASSEMBLE FROM ALL FRAGMENTS</span
+          >
+          <div>
+            &gt; OVERRIDE_KEY :: flag{<span class="redacted">████████████████████████████████████████████████████</span>}
+          </div>
+          <div>&gt; STATUS :: AWAITING ASSEMBLY<span class="cursor"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+    <footer>
+      <div class="footer-left">
+        <strong>OPERATION OVERRIDE</strong><br />
+        Organised by ISSA Club — NIE College, Mysuru<br />
+        Information Security Students Association
+      </div>
+      <div class="footer-right">
+        <span>PROTOCOL ZERO :: ACTIVE<span class="cursor"></span></span><br />
+        All decisions by Watchers are final<br />
+        Replace CTFd URLs before going live
+      </div>
+    </footer>
+
+    <script>
+      /* ── COUNTDOWN ─────────────────────────────────────────────────────────── */
+      (function () {
+        let total = 2 * 3600; // 2 hour countdown — adjust to your event duration
+        const h = document.getElementById("cd-h");
+        const m = document.getElementById("cd-m");
+        const s = document.getElementById("cd-s");
+
+        function tick() {
+          if (total <= 0) {
+            h.textContent = m.textContent = s.textContent = "00";
+            return;
+          }
+          h.textContent = String(Math.floor(total / 3600)).padStart(2, "0");
+          m.textContent = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
+          s.textContent = String(total % 60).padStart(2, "0");
+          total--;
+        }
+
+        tick(); // Run immediately so display shows "02 / 00 / 00" before first interval
+        setInterval(tick, 1000);
+      })();
+
+      /* ── NODE DATA ─────────────────────────────────────────────────────────── */
+      // ✏ Replace all ctfd URLs with your real CTFd challenge links before going live.
+      const nodes = [
+        {
+          num: 1,
+          icon: "🔢",
+          title: "Binary Distress Signal",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 50,
+          desc: "A distress signal was intercepted from a VORTEX safehouse. Decode the binary transmission to recover the first fragment.",
+          code: "01110110 01101111 01110010 01110100 01100101 01111000",
+          hint: "Each group of 8 binary digits = one character. Use rapidtables.com/convert/number/binary-to-ascii.html",
+          ctfd: "https://ctfd.io/ctfd/node-1", // ✏ Replace with real URL
+        },
+        {
+          num: 2,
+          icon: "📡",
+          title: "Morse Radio Burst",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 50,
+          desc: "VORTEX operatives used old-school radio to avoid detection. Decode this intercepted burst.",
+          code: "-... .-. . .- -.-. ...",
+          hint: "Each group separated by spaces is one letter. Paste into morsecode.world and decode.",
+          ctfd: "https://ctfd.io/ctfd/node-2", // ✏ Replace with real URL
+        },
+        {
+          num: 3,
+          icon: "🔒",
+          title: "ROT13 Internal Memo",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 50,
+          desc: 'An internal VORTEX memo was "secured" with ROT13. Every letter shifts by 13 places. Decode to find the fragment.',
+          code: "synt{ebg13_vf_abg_frphevgl}",
+          hint: '"synt" shifted 13 places → "flag". Paste into rot13.com. Non-letters stay as-is.',
+          ctfd: "https://ctfd.io/ctfd/node-3", // ✏ Replace with real URL
+        },
+        {
+          num: 4,
+          icon: "🌐",
+          title: "URL Encoded Directive",
+          cat: "Web",
+          catClass: "cat-web",
+          pts: 50,
+          desc: "A VORTEX operative shared this suspicious URL. Decode the percent-encoded characters to find the hidden fragment.",
+          code: "https://vortex.net/%66%6C%61%67%7B%75%72%6C%5F%65%6E%63%6F%64%65%64%7D",
+          hint: "%XX is a hex-encoded character. Paste the path portion into urldecoder.org to decode all at once.",
+          ctfd: "https://ctfd.io/ctfd/node-4", // ✏ Replace with real URL
+        },
+        {
+          num: 5,
+          icon: "🖼",
+          title: "Steganography — Operative Logo",
+          cat: "Forensics",
+          catClass: "cat-forensics",
+          pts: 50,
+          desc: "A leaked VORTEX logo image has been provided. A fragment is hidden inside the image data. Extract the hidden text.",
+          code: "Image file: vortex_logo.png\nExtraction password: vortex",
+          hint: 'Go to aperisolve.fr, upload the image, enter password "vortex". Check the steghide section output.',
+          ctfd: "https://ctfd.io/ctfd/node-5", // ✏ Replace with real URL
+        },
+        {
+          num: 6,
+          icon: "🕵",
+          title: "OSINT — Agent Lookup",
+          cat: "OSINT",
+          catClass: "cat-osint",
+          pts: 50,
+          desc: "A VORTEX operative used the username vrtx_phantom on GitHub and Pastebin. Find the secret message they left publicly.",
+          code: "Username: vrtx_phantom\nPlatforms: GitHub, Pastebin",
+          hint: "Search the username on GitHub. Look at public repos and gist descriptions — the flag is embedded in plain sight.",
+          ctfd: "https://ctfd.io/ctfd/node-6", // ✏ Replace with real URL
+        },
+        {
+          num: 7,
+          icon: "💉",
+          title: "SQL Injection — Login Panel",
+          cat: "Web",
+          catClass: "cat-web",
+          pts: 100,
+          desc: "A VORTEX login portal is hosted at the challenge URL. The username field is vulnerable to SQL injection. Log in as admin without the password.",
+          code: "Endpoint: /ctfd/node-7/login\nTry: admin'--",
+          hint: "In the username field try: admin'-- (space after --). This comments out the password check in the SQL query.",
+          ctfd: "https://ctfd.io/ctfd/node-7", // ✏ Replace with real URL
+        },
+        {
+          num: 8,
+          icon: "🔍",
+          title: "Robots.txt Recon",
+          cat: "Web",
+          catClass: "cat-web",
+          pts: 100,
+          desc: "The VORTEX public website hides a secret directory in its robots.txt file. Find the disallowed path and navigate there to recover the fragment.",
+          code: "Target: [event-site-url]/robots.txt",
+          hint: 'Add /robots.txt to the site URL. Look for "Disallow:" entries — navigate to those hidden paths.',
+          ctfd: "https://ctfd.io/ctfd/node-8", // ✏ Replace with real URL
+        },
+        {
+          num: 9,
+          icon: "📦",
+          title: "Packet Capture Analysis",
+          cat: "Network",
+          catClass: "cat-web",
+          pts: 100,
+          desc: "A .pcap file captured inside VORTEX HQ is provided. Filter HTTP POST traffic to find plaintext credentials being transmitted.",
+          code: 'File: vortex_capture.pcap\nFilter: http.request.method == "POST"',
+          hint: "Open in Wireshark → filter as shown → right-click → Follow → HTTP Stream. Look for password= field.",
+          ctfd: "https://ctfd.io/ctfd/node-9", // ✏ Replace with real URL
+        },
+        {
+          num: 10,
+          icon: "🔑",
+          title: "Hash Cracking — Operative Password",
+          cat: "Crypto",
+          catClass: "cat-crypto",
+          pts: 100,
+          desc: "A VORTEX operative's password hash was recovered from the breached database. Crack it to find the plaintext password.",
+          code: "5f4dcc3b5aa765d61d8327deb882cf99",
+          hint: "This is an MD5 hash. Go to crackstation.net, paste it in, and search the rainbow table database.",
+          ctfd: "https://ctfd.io/ctfd/node-10", // ✏ Replace with real URL
+        },
+        {
+          num: 11,
+          icon: "🏁",
+          title: "Final Override Assembly",
+          cat: "Logic",
+          catClass: "cat-logic",
+          pts: 500,
+          // FIX #6: Was "Combine all 10 fragment answers" — corrected to all 11
+          desc: "All fragments recovered. Arrange the answers from all previous nodes in the correct order to form the complete Override Key and stop Protocol Zero.",
+          code: "Combine all 11 fragment answers\nAssemble in correct sequence\nSubmit to Watcher Alpha",
+          hint: "The Override Key phrase was in your mission dossier from the beginning. Teams who read the full story carefully will recognise it.",
+          ctfd: "https://ctfd.io/ctfd/node-11", // ✏ Replace with real URL
+        },
+      ];
+
+      /* ── RENDER NODES ──────────────────────────────────────────────────────── */
+      // FIX #1 + #2: Added the "◎ REVEAL HINT" button to node card innerHTML
+      // and wired it to toggleHint() — previously the button was never injected,
+      // so toggleHint() was defined but unreachable.
+      (function () {
+        const grid = document.getElementById("nodes-grid");
+        nodes.forEach((n) => {
+          const card = document.createElement("div");
+          card.className = "node-card";
+          card.innerHTML = `
+            <div class="node-card-top">
+              <div class="node-icon">${n.icon}</div>
+              <div class="node-meta">
+                <div class="node-num">NODE ${String(n.num).padStart(2, "0")} / 11</div>
+                <div class="node-title">${n.title}</div>
+                <span class="node-cat ${n.catClass}">${n.cat}</span>
+              </div>
+              <div class="pts-badge">${n.pts} PTS</div>
+            </div>
+            <div class="node-desc">${n.desc}</div>
+            <div class="node-code">${n.code.replace(/\n/g, "<br>")}</div>
+            <div class="node-divider"></div>
+            <div class="node-footer">
+              <a class="solve-btn" href="${n.ctfd}" target="_blank" rel="noopener noreferrer">▶ SOLVE ON CTFd</a>
+              
+            </div>
+            <div class="hint-content">
+              <div class="hint-label">// INTERCEPTED INTELLIGENCE</div>
+              ${n.hint}
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      })();
+
+      /* ── TOGGLE HINT ───────────────────────────────────────────────────────── */
+      // FIX #1: This function is now actually reachable — hint button is rendered above.
+      function toggleHint(btn) {
+        const hintEl = btn.closest(".node-card").querySelector(".hint-content");
+        const open = hintEl.classList.toggle("open");
+        btn.textContent = open ? "✕ HIDE HINT" : "◎ REVEAL HINT";
+      }
+
+      /* ── SMOOTH SCROLL ─────────────────────────────────────────────────────── */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
+</html>
