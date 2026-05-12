@@ -2,46 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NODE TEMPLATE</title>
-
+  <title>NODE 08 — GHOST IN THE MARKUP</title>
   <link rel="stylesheet" href="../styles/global.css">
 </head>
-
 <body>
-
   <div class="node-container">
-
-    <h1>NODE 01 — SAFEHOUSE LOOP</h1>
-
+    <h1>NODE 08 — GHOST IN THE MARKUP</h1>
     <div class="story-section">
       <p>
-        Story text goes here...
+        Every page hides more than it shows. The event website has a flag buried inside an HTML comment — invisible to the eye, but not to those who look beneath the surface.
       </p>
     </div>
-
     <div class="challenge-section">
       <p>
-        Puzzle goes here...
+        Navigate to any node page on this site.<br><br>
+        Press <strong>Ctrl+U</strong> (or right-click → View Page Source) and search through the HTML.<br><br>
+        The fragment is hidden inside a comment tag. No hints given — this one rewards curiosity.
       </p>
     </div>
-
     <div class="hint-section">
       <p>
-        Hint goes here...
+        No hint for this one. The answer is already in front of you.
       </p>
     </div>
-
     <div class="flag-section">
       <input type="text" id="flagInput" placeholder="ENTER FRAGMENT">
-
       <button onclick="validateFlag('node08')">
         RECOVER FRAGMENT
       </button>
     </div>
-
   </div>
-
   <script type="module" src="../scripts/main.js"></script>
-
 </body>
 </html>
