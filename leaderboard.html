@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operation Override — Leaderboard</title>
+  <link rel="stylesheet" href="styles/global.css">
+</head>
+<body>
+  <main class="leaderboard-shell">
+    <header class="leaderboard-header">
+      <div>
+        <h1>LIVE LEADERBOARD</h1>
+        <p>Ranked by highest score, then earliest final solve time.</p>
+      </div>
+
+      <nav class="leaderboard-actions" aria-label="Leaderboard navigation">
+        <a class="leaderboard-link" href="index.html">MISSION</a>
+        <a class="leaderboard-link" href="nodes/node01.html">NODES</a>
+      </nav>
+    </header>
+
+    <div id="leaderboardStatus" class="leaderboard-status">CONNECTING TO FIRESTORE...</div>
+
+    <div class="leaderboard-table-wrap">
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Score</th>
+            <th>Solved</th>
+            <th>Last Solve</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <tr>
+            <td colspan="5" class="empty-row">SYNCING...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module" src="scripts/leaderboard.js"></script>
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

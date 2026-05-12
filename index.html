@@ -32,9 +32,10 @@
         <li><a href="#flow">FLOW</a></li>
         <li><a href="#support">SUPPORT</a></li>
         <li><a href="#nodes">NODES</a></li>
+        <li><a href="leaderboard.html">LEADERBOARD</a></li>
       </ul>
       <!-- ✏ Replace with your CTFd event URL -->
-      <a href="https://ctfd.io" target="_blank" class="nav-cta">ACCESS NODES</a>
+      <a href="#nodes" class="nav-cta">ACCESS NODES</a>
     </nav>
 
     <!-- ═══════════════════════════════════
@@ -1149,7 +1150,7 @@
           desc: "A distress signal was intercepted from a VORTEX safehouse. Decode the binary transmission to recover the first fragment.",
           code: "01110110 01101111 01110010 01110100 01100101 01111000",
           hint: "Each group of 8 binary digits = one character. Use rapidtables.com/convert/number/binary-to-ascii.html",
-          ctfd: "https://ctfd.io/ctfd/node-1", // ✏ Replace with real URL
+          ctfd: "nodes/node01.html",
         },
         {
           num: 2,
@@ -1161,7 +1162,7 @@
           desc: "VORTEX operatives used old-school radio to avoid detection. Decode this intercepted burst.",
           code: "-... .-. . .- -.-. ...",
           hint: "Each group separated by spaces is one letter. Paste into morsecode.world and decode.",
-          ctfd: "https://ctfd.io/ctfd/node-2", // ✏ Replace with real URL
+          ctfd: "nodes/node02.html",
         },
         {
           num: 3,
@@ -1173,7 +1174,7 @@
           desc: 'An internal VORTEX memo was "secured" with ROT13. Every letter shifts by 13 places. Decode to find the fragment.',
           code: "synt{ebg13_vf_abg_frphevgl}",
           hint: '"synt" shifted 13 places → "flag". Paste into rot13.com. Non-letters stay as-is.',
-          ctfd: "https://ctfd.io/ctfd/node-3", // ✏ Replace with real URL
+          ctfd: "nodes/node03.html",
         },
         {
           num: 4,
@@ -1185,7 +1186,7 @@
           desc: "A VORTEX operative shared this suspicious URL. Decode the percent-encoded characters to find the hidden fragment.",
           code: "https://vortex.net/%66%6C%61%67%7B%75%72%6C%5F%65%6E%63%6F%64%65%64%7D",
           hint: "%XX is a hex-encoded character. Paste the path portion into urldecoder.org to decode all at once.",
-          ctfd: "https://ctfd.io/ctfd/node-4", // ✏ Replace with real URL
+          ctfd: "nodes/node04.html",
         },
         {
           num: 5,
@@ -1197,7 +1198,7 @@
           desc: "A leaked VORTEX logo image has been provided. A fragment is hidden inside the image data. Extract the hidden text.",
           code: "Image file: vortex_logo.png\nExtraction password: vortex",
           hint: 'Go to aperisolve.fr, upload the image, enter password "vortex". Check the steghide section output.',
-          ctfd: "https://ctfd.io/ctfd/node-5", // ✏ Replace with real URL
+          ctfd: "nodes/node05.html",
         },
         {
           num: 6,
@@ -1209,7 +1210,7 @@
           desc: "A VORTEX operative used the username vrtx_phantom on GitHub and Pastebin. Find the secret message they left publicly.",
           code: "Username: vrtx_phantom\nPlatforms: GitHub, Pastebin",
           hint: "Search the username on GitHub. Look at public repos and gist descriptions — the flag is embedded in plain sight.",
-          ctfd: "https://ctfd.io/ctfd/node-6", // ✏ Replace with real URL
+          ctfd: "nodes/node06.html",
         },
         {
           num: 7,
@@ -1221,7 +1222,7 @@
           desc: "A VORTEX login portal is hosted at the challenge URL. The username field is vulnerable to SQL injection. Log in as admin without the password.",
           code: "Endpoint: /ctfd/node-7/login\nTry: admin'--",
           hint: "In the username field try: admin'-- (space after --). This comments out the password check in the SQL query.",
-          ctfd: "https://ctfd.io/ctfd/node-7", // ✏ Replace with real URL
+          ctfd: "nodes/node07.html",
         },
         {
           num: 8,
@@ -1233,7 +1234,7 @@
           desc: "The VORTEX public website hides a secret directory in its robots.txt file. Find the disallowed path and navigate there to recover the fragment.",
           code: "Target: [event-site-url]/robots.txt",
           hint: 'Add /robots.txt to the site URL. Look for "Disallow:" entries — navigate to those hidden paths.',
-          ctfd: "https://ctfd.io/ctfd/node-8", // ✏ Replace with real URL
+          ctfd: "nodes/node08.html",
         },
         {
           num: 9,
@@ -1245,7 +1246,7 @@
           desc: "A .pcap file captured inside VORTEX HQ is provided. Filter HTTP POST traffic to find plaintext credentials being transmitted.",
           code: 'File: vortex_capture.pcap\nFilter: http.request.method == "POST"',
           hint: "Open in Wireshark → filter as shown → right-click → Follow → HTTP Stream. Look for password= field.",
-          ctfd: "https://ctfd.io/ctfd/node-9", // ✏ Replace with real URL
+          ctfd: "nodes/node09.html",
         },
         {
           num: 10,
@@ -1257,7 +1258,7 @@
           desc: "A VORTEX operative's password hash was recovered from the breached database. Crack it to find the plaintext password.",
           code: "5f4dcc3b5aa765d61d8327deb882cf99",
           hint: "This is an MD5 hash. Go to crackstation.net, paste it in, and search the rainbow table database.",
-          ctfd: "https://ctfd.io/ctfd/node-10", // ✏ Replace with real URL
+          ctfd: "nodes/node10.html",
         },
         {
           num: 11,
@@ -1270,7 +1271,7 @@
           desc: "All fragments recovered. Arrange the answers from all previous nodes in the correct order to form the complete Override Key and stop Protocol Zero.",
           code: "Combine all 11 fragment answers\nAssemble in correct sequence\nSubmit to Watcher Alpha",
           hint: "The Override Key phrase was in your mission dossier from the beginning. Teams who read the full story carefully will recognise it.",
-          ctfd: "https://ctfd.io/ctfd/node-11", // ✏ Replace with real URL
+          ctfd: "nodes/node11.html",
         },
       ];
 
@@ -1297,7 +1298,7 @@
             <div class="node-code">${n.code.replace(/\n/g, "<br>")}</div>
             <div class="node-divider"></div>
             <div class="node-footer">
-              <a class="solve-btn" href="${n.ctfd}" target="_blank" rel="noopener noreferrer">▶ SOLVE ON CTFd</a>
+              <a class="solve-btn" href="${n.ctfd}">▶ OPEN NODE</a>
               
             </div>
             <div class="hint-content">
@@ -1326,5 +1327,6 @@
         });
       });
     </script>
+    <script type="module" src="scripts/main.js"></script>
   </body>
 </html>

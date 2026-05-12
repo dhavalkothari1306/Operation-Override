@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 43, 214, 0.14), transparent 34%),
+    linear-gradient(135deg, #050712 0%, #081120 50%, #050712 100%);
+  color: #e8fbff;
+  font-family: "Share Tech Mono", "Courier New", monospace;
+}
+
+a {
+  color: inherit;
+}
+
+.node-container,
+.leaderboard-shell {
+  width: min(920px, calc(100% - 32px));
+  margin: 48px auto;
+  border: 1px solid rgba(0, 245, 255, 0.55);
+  background: rgba(5, 7, 18, 0.86);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.18);
+  padding: 28px;
+}
+
+h1 {
+  margin: 0 0 24px;
+  color: #00f5ff;
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 0;
+}
+
+.story-section,
+.challenge-section,
+.hint-section,
+.flag-section {
+  border-left: 2px solid #ff2bd6;
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.flag-section {
+  border-left-color: #00f5ff;
+}
+
+.flag-section input {
+  margin-bottom: 0;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.leaderboard-header p {
+  margin: 8px 0 0;
+  color: #9fb6c6;
+}
+
+.leaderboard-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.leaderboard-link {
+  border: 1px solid #00f5ff;
+  color: #00f5ff;
+  padding: 10px 12px;
+  text-decoration: none;
+}
+
+.leaderboard-status {
+  color: #ff2bd6;
+  margin-bottom: 12px;
+}
+
+.leaderboard-table-wrap {
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  border-bottom: 1px solid rgba(0, 245, 255, 0.25);
+  padding: 14px 12px;
+  text-align: left;
+}
+
+.leaderboard-table th {
+  color: #00f5ff;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.leaderboard-table tbody tr:nth-child(1) td {
+  color: #ffec70;
+}
+
+.empty-row {
+  text-align: center;
+  color: #9fb6c6;
+}
+
+@media (max-width: 640px) {
+  .node-container,
+  .leaderboard-shell {
+    margin: 24px auto;
+    padding: 20px;
+  }
+
+  .leaderboard-header {
+    display: block;
+  }
+
+  .leaderboard-actions {
+    margin-top: 14px;
+  }
+}
