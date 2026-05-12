@@ -8,17 +8,17 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const flags = {
-  node01: "OVERRIDE{127.0.0.1}",
-  node02: "OVERRIDE{ENCRYPTION}",
-  node03: "OVERRIDE{SOCIAL_OSINT}",
-  node04: "OVERRIDE{INSPECT_ELEMENT}",
-  node05: "OVERRIDE{ROT13_UNLOCKED}",
-  node06: "OVERRIDE{BASE64_DECODED}",
-  node07: "OVERRIDE{STEGANOGRAPHY}",
-  node08: "OVERRIDE{SQL_INJECTION}",
-  node09: "OVERRIDE{PACKET_CAPTURE}",
-  node10: "OVERRIDE{PASSWORD}",
-  node11: "OVERRIDE{PROTOCOL_ZERO_STOPPED}",
+  node01: "127.0.0.1",
+  node02: "ENCRYPTION",
+  node03: "VORTEX_FALLS",
+  node04: "HACKED",
+  node05: "PROTOCOL",
+  node06: "HASH",
+  node07: "01",
+  node08: "you_read_the_source",
+  node09: "crawlers_cant_hide_secrets",
+  node10: "BRUTEFORCE",
+  node11: "VORTEX",
 };
 
 const NODE_IDS = Object.keys(flags);
